@@ -1,8 +1,8 @@
 const myForm = document.querySelector('#my-form');
 
-myForm.addEventListener('submit',onSubmit);
+myForm.addEventListener('submit',saveToLocalStorage);
 
-function onSubmit(e) {
+function saveToLocalStorage(e) {
     e.preventDefault();
 
     const expenditure = e.target.expenditure.value;
@@ -13,8 +13,17 @@ function onSubmit(e) {
         description,
         category,
     }
-    localStorage.setItem(obj.description, JSON.stringify(obj));
-    showUserOnScreen(obj);
+
+    axios.post("https://crudcrud.com/api/671135eecbf440a7b13243c80d91ada3/appointmentData", obj)
+        .then((Response) => {
+            showUserOnScreen(Response.data);
+            console.log(Response)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    //localStorage.setItem(obj.description, JSON.stringify(obj));
+    
 }
 
 function showUserOnScreen(obj) {
