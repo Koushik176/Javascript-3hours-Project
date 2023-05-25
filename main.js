@@ -14,7 +14,7 @@ function saveToLocalStorage(e) {
         category,
     }
 
-    axios.post("https://crudcrud.com/api/671135eecbf440a7b13243c80d91ada3/appointmentData", obj)
+    axios.post("https://crudcrud.com/api/1e1791bc32e2431d9b9ccebe4e8be3d8/appointmentData", obj)
         .then((Response) => {
             showUserOnScreen(Response.data);
             console.log(Response)
@@ -25,6 +25,21 @@ function saveToLocalStorage(e) {
     //localStorage.setItem(obj.description, JSON.stringify(obj));
     
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+    axios.get("https://crudcrud.com/api/1e1791bc32e2431d9b9ccebe4e8be3d8/appointmentData")
+        .then((response) => {
+            console.log(response)
+
+            for(var i = 0; i< response.data.length; i++)
+            {
+                showUserOnScreen(response.data[i]);
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+})
 
 function showUserOnScreen(obj) {
     const parentElem = document.getElementById('users');
