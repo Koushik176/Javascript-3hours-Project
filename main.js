@@ -66,7 +66,14 @@ function showUserOnScreen(obj) {
         document.querySelector('#expenditure').value = obj.expenditure;
         document.querySelector('#description').value = obj.description;
         document.querySelector('#category').value = obj.category;
-        localStorage.removeItem(obj.description);
+        //localStorage.removeItem(obj.description);
+        axios.delete(`https://crudcrud.com/api/c3c243b802fa4a3885998a0e71b521e7/appointmentData/${obj._id}`)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
         parentElem.removeChild(childElem);
     }
     childElem.appendChild(editButton);
