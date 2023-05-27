@@ -14,10 +14,9 @@ function saveToLocalStorage(e) {
         category,
     }
 
-    axios.post("https://crudcrud.com/api/1e1791bc32e2431d9b9ccebe4e8be3d8/appointmentData", obj)
+    axios.post("https://crudcrud.com/api/c3c243b802fa4a3885998a0e71b521e7/appointmentData", obj)
         .then((Response) => {
             showUserOnScreen(Response.data);
-            console.log(Response)
         })
         .catch((err) => {
             console.log(err)
@@ -27,10 +26,8 @@ function saveToLocalStorage(e) {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-    axios.get("https://crudcrud.com/api/1e1791bc32e2431d9b9ccebe4e8be3d8/appointmentData")
+    axios.get("https://crudcrud.com/api/c3c243b802fa4a3885998a0e71b521e7/appointmentData")
         .then((response) => {
-            console.log(response)
-
             for(var i = 0; i< response.data.length; i++)
             {
                 showUserOnScreen(response.data[i]);
@@ -51,7 +48,13 @@ function showUserOnScreen(obj) {
     deleteButton.className = 'btn btn-primary';
     deleteButton.value = 'Delete';
     deleteButton.onclick = () => {
-        localStorage.removeItem(obj.description);
+        axios.delete(`https://crudcrud.com/api/c3c243b802fa4a3885998a0e71b521e7/appointmentData/${obj._id}`)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
         parentElem.removeChild(childElem);
     }
     childElem.appendChild(deleteButton);
